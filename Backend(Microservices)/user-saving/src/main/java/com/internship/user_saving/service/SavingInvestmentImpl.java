@@ -44,15 +44,32 @@ public class SavingInvestmentImpl implements SavingInvestmentServices {
         return savingAndInvestmentRepository.findAll();
     }
 
-    public List<SavingAndInvestment> getSavingsByDate(YearMonth monthOfSavingsEntered) {
+    public List<SavingAndInvestment> getSavingsByDate(String monthOfSavingsEntered) {
         return savingAndInvestmentRepository.findAllByDate(monthOfSavingsEntered);
     }
 
-    public List<SavingAndInvestment> getSavingsByDay(YearMonth monthOfSavingsEntered, int dayOfSavingsEntered) {
+    public List<SavingAndInvestment> getSavingsByDay(String monthOfSavingsEntered, int dayOfSavingsEntered) {
         return savingAndInvestmentRepository.findAllByDay(monthOfSavingsEntered, dayOfSavingsEntered);
     }
 
-    public List<Double> getSavingsAmount(YearMonth date) {
-        return savingAndInvestmentRepository.getSavingAmounts(date);
+    public double getSavingsAmount(String date) {
+
+        double totalAmount=0;
+        List<Double> amounts=savingAndInvestmentRepository.getSavingAmounts(date);
+        for(double amount:amounts) {
+            totalAmount += amount;
+        }
+        return totalAmount;
+    }
+
+    public double getSavingsAmountCurrentDay(String dateOfEntry, String dayOfMonth) {
+        double totalAmount=0;
+        List<Double> amounts=savingAndInvestmentRepository.getSavingAmountGivenDate(dateOfEntry,dayOfMonth);
+        if (!amounts.isEmpty()) {
+            for(double amount:amounts){
+                totalAmount+=amount;
+            }
+        }
+        return totalAmount;
     }
 }

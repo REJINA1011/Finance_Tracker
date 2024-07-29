@@ -9,5 +9,5 @@ import java.util.List;
 public interface IncomeService {
     Income addIncome(IncomeDTO incomeDTO);
     List<Income> getAllAddedIncomes();
-    List<Income> getIncomesByDate(YearMonth dateOfIncomeEntered);
+    List<Income> getIncomesByDate(String dateOfIncomeEntered);
 }

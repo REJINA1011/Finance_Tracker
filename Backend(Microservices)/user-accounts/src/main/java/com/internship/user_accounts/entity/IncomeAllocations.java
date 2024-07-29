@@ -16,7 +16,7 @@ import java.time.YearMonth;
 public class IncomeAllocations {
     private Long incomeAllocationId;
 
-    private YearMonth dateOfEntry;
+    private String dateOfEntry;
 
     private double incomeAmount;
 

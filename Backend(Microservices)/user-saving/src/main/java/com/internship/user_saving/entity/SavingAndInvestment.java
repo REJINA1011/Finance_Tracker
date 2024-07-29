@@ -14,7 +14,7 @@ public class SavingAndInvestment {
     private Long savingId;
 
     @Column(nullable = false, updatable = false)
-    private YearMonth dateOfEntry;
+    private String dateOfEntry;
 
     @Column(nullable = false, updatable = false)
     private int dayOfTheMonth;
@@ -28,6 +28,8 @@ public class SavingAndInvestment {
 
     @PrePersist
     protected void onCreate() {
-        dateOfEntry = YearMonth.now(); // Set the entry date before persisting
+
+        dateOfEntry = YearMonth.now().toString();
+        dayOfTheMonth=LocalDate.now().getDayOfMonth();
     }
 }

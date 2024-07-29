@@ -15,7 +15,7 @@ public class IncomeAllocation {
     private Long incomeAllocationId;
 
     @Column(nullable = false, updatable = false)
-    private YearMonth dateOfEntry;
+    private String dateOfEntry;
 
     private double incomeAmount;
 
@@ -27,6 +27,6 @@ public class IncomeAllocation {
 
     @PrePersist
     protected void onCreate() {
-        dateOfEntry = YearMonth.now(); // Set the entry date before persisting
+        dateOfEntry = YearMonth.now().toString(); // Set the entry date before persisting
     }
 }

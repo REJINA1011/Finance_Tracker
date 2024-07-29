@@ -1,0 +1,36 @@
+<div class="row gv-2">
+  <form style="height: fit-content;" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+    <p style="font-size: 20px; font-weight: 500;"> <i class="fa-solid fa-coins"></i> Add
+      Income</p>
+    <div class="input-settings">
+      <!-- <label for="inputAddress2" class="form-label"><i class="fa-solid fa-money-bill-wave"></i> Amount</label> -->
+      <input type="text" id="amount" formControlName="amount" class="col-5 form-control" id="inputAddress2"
+        placeholder="Amount">
+    </div>
+
+    <div class="input-settings">
+      <!-- <label for="inputZip" class="form-label"><i class="fa-solid fa-file-pen"></i> Description</label> -->
+      <input type="text" id="description" formControlName="description" class="form-control col-5" id="inputZip"
+        placeholder="Description">
+    </div>
+
+
+    <div class="input-settings">
+
+      <div class="col-5">
+        <label for="inputCategory" class="form-label"> <i class="fa-solid fa-list"></i> Category</label>
+        <button type="button" class=" btn category-button" (click)="selectCategory('BUSINESS')">BUSINESS</button>
+        <button type="button" class=" btn category-button" (click)="selectCategory('SALARY')">SALARY</button>
+        <button type="button" class=" btn category-button" (click)="selectCategory('FREELANCE')">FREELANCE</button>
+      </div>
+      <input type="hidden" formControlName="category">
+    </div>
+
+    <div class="input-settings" style="margin-top: 20px;">
+      <button type="submit" class="btn" style="background-color:#4094b8;color: white; width: 6cm;"><i
+          class="fa-solid fa-plus" style="color: white;"></i>
+        Insert</button>
+    </div>
+  </form>
+</div>

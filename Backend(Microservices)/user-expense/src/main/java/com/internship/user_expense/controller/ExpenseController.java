@@ -19,8 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/expenses")
 @RequiredArgsConstructor
-@CrossOrigin("*")
-@EnableDiscoveryClient
+@CrossOrigin(origins = "http://localhost:4200")
 public class ExpenseController {
 
 
@@ -40,45 +39,64 @@ public class ExpenseController {
     private ResponseEntity<ApiResponse> getAllListedExpenses(){
         List<Expenses> expensesList = expenseServiceImpl.getAllAddedExpense();
 
-        if(expensesList!=null){
-            ApiResponse response= ApiResponse.builder().message("List of total expenses").data(expensesList).build();
-            return new ResponseEntity<>(response, HttpStatus.FOUND);
-        }else{
+        if(expensesList.isEmpty()){
             ApiResponse response= ApiResponse.builder().message("No List of expenses Found").data(null).build();
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }else{
+            ApiResponse response= ApiResponse.builder().message("List of total expenses").data(expensesList).build();
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 
     //get all expenses for the given month
     @GetMapping("/getAllExpenses/{monthOfExpenseEntered}")
-    private ResponseEntity<ApiResponse> getExpenseByDate(@PathVariable YearMonth monthOfExpenseEntered) {
+    private ResponseEntity<ApiResponse> getExpenseByDate(@PathVariable String monthOfExpenseEntered) {
         List<Expenses> expenses= expenseServiceImpl.getExpenseByDate(monthOfExpenseEntered);
-
-        if(expenses!=null){
-            ApiResponse response= ApiResponse.builder().message("List of Expenses on the given month").data(expenses).build();
-            return new ResponseEntity<>(response, HttpStatus.FOUND);
+        if(expenses.isEmpty()){
+            ApiResponse response= ApiResponse.builder().message("No Entry done currently").data(null).build();
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }else{
-            ApiResponse response= ApiResponse.builder().message("No List of Expenses on the given month found").data(null).build();
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            ApiResponse response= ApiResponse.builder().message("List of Expenses on the given month").data(expenses).build();
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 
-    //get all the expenses as per date i.e. year, month and year
+    //get all the expenses as per date i.e. year, month and day
     @GetMapping("/getAllExpenses/{monthOfExpenseEntered}/{dayOfExpenseEntered}")
-    private ResponseEntity<ApiResponse> getExpenseByDate(@PathVariable YearMonth monthOfExpenseEntered, @PathVariable int dayOfExpenseEntered) {
+    private ResponseEntity<ApiResponse> getExpenseByDate(@PathVariable String monthOfExpenseEntered, @PathVariable int dayOfExpenseEntered) {
         List<Expenses> dayOfExpenses= expenseServiceImpl.getExpenseByDay(monthOfExpenseEntered,dayOfExpenseEntered);
 
-        if(dayOfExpenses!=null){
-            ApiResponse response= ApiResponse.builder().message("List of Expenses on the given date").data(dayOfExpenses).build();
-            return new ResponseEntity<>(response, HttpStatus.FOUND);
+        if(dayOfExpenses.isEmpty()){
+            ApiResponse response= ApiResponse.builder().message("No entry done currently").data(dayOfExpenses).build();
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }else{
-            ApiResponse response= ApiResponse.builder().message("No List of Expenses on the given date found").data(null).build();
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            ApiResponse response= ApiResponse.builder().message("List of Expenses on the given date").data(dayOfExpenses).build();
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 
     @GetMapping("/getAllExpensesAmount/{yearMonth}/{category}")
-    private List<Double> getAllExpensesAsCategory(@PathVariable YearMonth yearMonth, @PathVariable ExpenseCategory category){
+    private double getAllExpensesAsCategory(@PathVariable String yearMonth, @PathVariable ExpenseCategory category){
         return expenseServiceImpl.getAllExpensesByCategory(yearMonth, category);
     }
+
+    @GetMapping("/getAllExpensesAmount/{yearMonth}/{dayOfEntry}/{category}")
+    private double getAllExpensesPerDayAsCategory(@PathVariable String yearMonth,@PathVariable int dayOfEntry, @PathVariable ExpenseCategory category){
+        return expenseServiceImpl.getAllExpensesPerDayByCategory(yearMonth,dayOfEntry,category);
+    }
+
+    @GetMapping("/getAllExpenses/{yearMonth}/{dayOfEntry}/{category}")
+    private ResponseEntity<ApiResponse> getAllExpensesEachDayAsCategory(@PathVariable String yearMonth,@PathVariable int dayOfEntry,@PathVariable ExpenseCategory category){
+        List<Expenses> dayOfExpenses=  expenseServiceImpl.getAllExpensesEachDayByCategory(yearMonth,dayOfEntry,category);
+
+        if(dayOfExpenses.isEmpty()){
+            ApiResponse response= ApiResponse.builder().message("No entry done currently").data(dayOfExpenses).build();
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }else{
+            ApiResponse response= ApiResponse.builder().message("List of Expenses on the given date and category").data(dayOfExpenses).build();
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
+    }
+
 }

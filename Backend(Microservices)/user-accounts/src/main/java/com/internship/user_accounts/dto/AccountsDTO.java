@@ -9,7 +9,7 @@ public class AccountsDTO {
 
     private Long accountId;
 
-    private YearMonth date;
+    private String date;
 
     private double income;
 

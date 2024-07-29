@@ -11,15 +11,13 @@ public class ExpenseDTO {
 
     private Long expenseId;
 
-    private YearMonth dateOfExpense;
+    private String dateOfExpense;
 
     private int dayOfTheMonth;
 
     private double amount;
 
     private ExpenseCategory category;
-
-    private String title;
 
     private String description;
 
@@ -29,7 +27,6 @@ public class ExpenseDTO {
 
         expenseDTO.setExpenseId(expenseId);
         expenseDTO.setDateOfExpense(dateOfExpense);
-        expenseDTO.setTitle(title);
         expenseDTO.setCategory(category);
         expenseDTO.setDescription(description);
         expenseDTO.setDayOfTheMonth(dayOfTheMonth);

@@ -9,7 +9,7 @@ import java.util.List;
 public interface SavingInvestmentServices {
     SavingAndInvestment addSavingInvestment(SavingAndInvestmentDTO savingAndInvestmentDTO);
     List<SavingAndInvestment> getAllAddedSavings();
-    List<SavingAndInvestment> getSavingsByDate(YearMonth monthOfSavingsEntered);
-    List<Double> getSavingsAmount(YearMonth date);
-    List<SavingAndInvestment> getSavingsByDay(YearMonth monthOfSavingsEntered, int dayOfSavingsEntered);
+    List<SavingAndInvestment> getSavingsByDate(String monthOfSavingsEntered);
+    double getSavingsAmount(String date);
+    List<SavingAndInvestment> getSavingsByDay(String monthOfSavingsEntered, int dayOfSavingsEntered);
 }

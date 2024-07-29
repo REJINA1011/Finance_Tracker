@@ -22,7 +22,7 @@ public class AccountsController {
     private final AccountsServiceImpl accountsService;
 
     @GetMapping("/addDetails/{entryDate}")
-    private ResponseEntity<?> addAccount(@PathVariable YearMonth entryDate){
+    private ResponseEntity<?> addAccount(@PathVariable String entryDate){
        Accounts createAccounts = accountsService.addAccountsDetails(entryDate);
         if(createAccounts!=null){
             return ResponseEntity.status(HttpStatus.CREATED).body(createAccounts);
@@ -32,7 +32,7 @@ public class AccountsController {
     }
 
     @GetMapping("/getAccountsDetails/{entryDate}")
-    private Accounts getAccountsDetails(@PathVariable YearMonth entryDate){
+    private Accounts getAccountsDetails(@PathVariable String entryDate){
         return accountsService.getAccountDetails(entryDate);
     }
 

@@ -1,0 +1,35 @@
+.form-control {
+    background-color: rgba(186, 233, 253, 0.2);
+}
+
+form {
+    margin: 5px 5px 20px 0px;
+    background-color: white;
+    height: max-content;
+    width: 46vw;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    padding: 15px;
+    font-size: 16px;
+}
+
+input {
+    border-color: rgba(186, 233, 253, 0.5);
+    border-width: 2px;
+}
+
+i {
+    color: rgb(34, 46, 80);
+}
+
+.category-button {
+    margin-right: 20px;
+    border-color: #445D48;
+}
+
+.category-button:hover {
+    /* background-color: #D1495B; */
+    background-color: #445D48;
+    color: white;
+}

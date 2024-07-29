@@ -25,7 +25,10 @@ public class IncomeAllocationServiceImpl implements IncomeAllocationService {
     @Autowired
     private RestTemplate restTemplate;
 
-    private IncomeAllocation addIncomeAllocations(YearMonth date,IncomeAllocation incomeAllocation){
+    @Autowired
+    private ApiResponse response;
+
+    private IncomeAllocation addIncomeAllocations(String date,IncomeAllocation incomeAllocation){
 
         List<Double> incomeAmountList=restTemplate.getForObject("http://user-income/api/income/getIncomeAmount/"+date, ArrayList.class);
 
@@ -38,8 +41,8 @@ public class IncomeAllocationServiceImpl implements IncomeAllocationService {
             totalincomeAmount+=incomeamount;
         }
 
-        //update value in the database if the income allocation is already made on that date
-        IncomeAllocation incomeAllocationObj =incomeAllocationRepository.getAllAmount(date);
+        //update value in the database if the income allocation is already made on that month and year
+        IncomeAllocation incomeAllocationObj =incomeAllocationRepository.getAllocationsByYearMonth(date);
 
         if(incomeAllocationObj!=null){
 
@@ -48,7 +51,10 @@ public class IncomeAllocationServiceImpl implements IncomeAllocationService {
                 incomeAllocationObj.setExpensesOnWants(expensesAndSavingAllocator(totalincomeAmount,"wants"));
                 incomeAllocationObj.setSavingAmount(expensesAndSavingAllocator(totalincomeAmount,"saving"));
 
-                return incomeAllocationRepository.save(incomeAllocationObj);
+                incomeAllocationRepository.save(incomeAllocationObj);
+                return incomeAllocationObj;
+//                response.setMessage("Income Allocation Generated");
+//                return response;
         }
 
         IncomeAllocationDTO incomeAllocationDTO=new IncomeAllocationDTO();
@@ -66,10 +72,13 @@ public class IncomeAllocationServiceImpl implements IncomeAllocationService {
         incomeAllocation.setExpensesOnWants(expensesAndSavingAllocator(totalincomeAmount,"wants"));
         incomeAllocation.setSavingAmount(expensesAndSavingAllocator(totalincomeAmount,"saving"));
 
-        return incomeAllocationRepository.save(incomeAllocation);
+        incomeAllocationRepository.save(incomeAllocation);
+        return  incomeAllocation;
+//        response.setMessage("Income Allocation Generated");
+//        return response;
     }
 
-    public IncomeAllocation addIncomeAllocationDetails(YearMonth date) {
+    public IncomeAllocation addIncomeAllocationDetails(String date) {
         return addIncomeAllocations(date,new IncomeAllocation());
     }
 
@@ -85,7 +94,12 @@ public class IncomeAllocationServiceImpl implements IncomeAllocationService {
         return allocationAmount;
     }
 
-    public IncomeAllocation getIncomeAllocations(YearMonth yearMonth) {
-        return incomeAllocationRepository.getAllAmount(yearMonth);
+    public  List<IncomeAllocation> getIncomeAllocations() {
+       return incomeAllocationRepository.findAll();
     }
+
+    public IncomeAllocation getIncomeAllocationsByYearMonth(String yearMonth) {
+        return incomeAllocationRepository.getAllocationsByYearMonth(yearMonth);
+    }
+
 }

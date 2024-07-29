@@ -15,7 +15,7 @@ public class Expenses {
     private Long expenseId;
 
     @Column(nullable = false, updatable = false)
-    private YearMonth dateOfExpense;
+    private String dateOfExpense;
 
     @Column(nullable = false, updatable = false)
     private int dayOfTheMonth;
@@ -25,13 +25,11 @@ public class Expenses {
     @Enumerated(EnumType.STRING)
     private ExpenseCategory category;
 
-    private String title;
-
     private String description;
 
     @PrePersist
     protected void onCreate() {
-        dateOfExpense = YearMonth.now();// Set the entry date before persisting
+        dateOfExpense = YearMonth.now().toString();// Set the entry date before persisting
         dayOfTheMonth=LocalDate.now().getDayOfMonth();
     }
 }

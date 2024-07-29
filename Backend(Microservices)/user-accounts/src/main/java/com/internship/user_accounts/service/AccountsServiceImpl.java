@@ -19,12 +19,12 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class  AccountsServiceImpl implements AccountServices{
-    //@Autowired
+    @Autowired
     private RestTemplate restTemplate;
 
     private final AccountsRepository accountsRepository;
 
-    private Accounts addAccounts(YearMonth date, Accounts accounts){
+    private Accounts addAccounts(String date, Accounts accounts){
 
         //to get allocated income, expenses and saving amount
 
@@ -34,22 +34,21 @@ public class  AccountsServiceImpl implements AccountServices{
             throw new DataNotFoundException("Data is not found");
         }
 
-        List<Double> spentOnNeedsList=restTemplate.getForObject("http://user-expense/api/expenses/getAllExpensesAmount/"+date+"/"+ExpenseCategory.NEEDS, ArrayList.class);
+        double spentOnNeedsList=restTemplate.getForObject("http://user-expense/api/expenses/getAllExpensesAmount/"+date+"/"+ExpenseCategory.NEEDS, Double.class);
+        System.out.println("accounts needs:"+spentOnNeedsList);
+        double spentOnWantsList=restTemplate.getForObject("http://user-expense/api/expenses/getAllExpensesAmount/"+date+"/"+ExpenseCategory.WANTS, Double.class);
 
-        List<Double> spentOnWantsList=restTemplate.getForObject("http://user-expense/api/expenses/getAllExpensesAmount/"+date+"/"+ExpenseCategory.WANTS, ArrayList.class);
-
-        List<Double> spentOnSavingsList=restTemplate.getForObject("http://user-saving/api/saving/getSavingAmount/"+date, ArrayList.class);
+        double spentOnSavingsList=restTemplate.getForObject("http://user-saving/api/saving/getSavingAmounts/"+date, Double.class);
 
         Accounts accountsObj =accountsRepository.getAllAccounts(date);
-
         if(accountsObj!=null){
             accountsObj.setIncome(incomeAmountDetails.getIncomeAmount());
-            accounts.setAllocatedNeeds(incomeAmountDetails.getExpensesOnNeeds());
-            accounts.setAllocatedWants(incomeAmountDetails.getExpensesOnWants());
-            accounts.setAllocatedSavings(incomeAmountDetails.getSavingAmount());
-            accounts.setSpentOnNeeds(totalExpenseMade(spentOnNeedsList));
-            accounts.setSpentOnWants(totalExpenseMade(spentOnWantsList));
-            accounts.setSpendOnSavings(totalExpenseMade(spentOnSavingsList));
+            accountsObj.setAllocatedNeeds(incomeAmountDetails.getExpensesOnNeeds());
+            accountsObj.setAllocatedWants(incomeAmountDetails.getExpensesOnWants());
+            accountsObj.setAllocatedSavings(incomeAmountDetails.getSavingAmount());
+            accountsObj.setSpentOnNeeds(spentOnNeedsList);
+            accountsObj.setSpentOnWants(spentOnWantsList);
+            accountsObj.setSpendOnSavings(spentOnSavingsList);
 
             return accountsRepository.save(accountsObj);
         }
@@ -66,46 +65,17 @@ public class  AccountsServiceImpl implements AccountServices{
         accounts.setAllocatedSavings(incomeAmountDetails.getSavingAmount());
 
         //setting the amounts spent by the user
-        accounts.setSpentOnNeeds(totalExpenseMade(spentOnNeedsList));
-        accounts.setSpentOnWants(totalExpenseMade(spentOnWantsList));
-        accounts.setSpendOnSavings(totalExpenseMade(spentOnSavingsList));
-
-//        //setting the deviation found between the amount spent by the user and the amount allocated
-//        double deviationAmount=getAmountDeviation(totalExpenseMade(spentOnNeedsList),incomeAmountDetails.getExpensesOnNeeds());
-//
-//        accounts.setNeedsDeviation(deviationAmount);
-//        accounts.setAccountStatus(setDeviationStatus(deviationAmount));
-//
-//        accounts.setWantsDeviation(deviationAmount);
-//        accounts.setAccountStatus(setDeviationStatus(deviationAmount));
-//
-//        accounts.setSavingsDeviation(deviationAmount);
-//
-
-
+        accounts.setSpentOnNeeds(spentOnNeedsList);
+        accounts.setSpentOnWants(spentOnWantsList);
+        accounts.setSpendOnSavings(spentOnSavingsList);
         return accountsRepository.save(accounts);
     }
 
-    public Accounts addAccountsDetails(YearMonth date) {
+    public Accounts addAccountsDetails(String date) {
         return addAccounts(date,new Accounts());
     }
 
-    private double totalExpenseMade(List<Double> expenseAmountList){
-        double totalAmount=0;
-
-        for(Double expenseAmount:expenseAmountList){
-            totalAmount+=expenseAmount;
-        }
-        return totalAmount;
-    }
-
-    public Accounts getAccountDetails(YearMonth entryDate) {
+    public Accounts getAccountDetails(String entryDate) {
         return accountsRepository.getAllAccounts(entryDate);
     }
-
-//    private double getAmountDeviation(double userTotalAmounts, double allocatedAmounts){
-//        return allocatedAmounts-userTotalAmounts;
-//    }
-//
-//
 }

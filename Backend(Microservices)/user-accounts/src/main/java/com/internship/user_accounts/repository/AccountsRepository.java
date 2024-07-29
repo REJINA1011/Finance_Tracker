@@ -9,6 +9,6 @@ import java.time.YearMonth;
 public interface AccountsRepository extends JpaRepository<Accounts,Long> {
 
     @Query("SELECT accounts FROM Accounts accounts where accounts.date=:date")
-    Accounts getAllAccounts(YearMonth date);
+    Accounts getAllAccounts(String date);
 
 }

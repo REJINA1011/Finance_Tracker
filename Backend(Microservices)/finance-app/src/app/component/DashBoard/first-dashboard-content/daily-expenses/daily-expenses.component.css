@@ -1,0 +1,19 @@
+.border-settings {
+    border-radius: 20px;
+    background-color: white;
+    max-width: 350px;
+    min-height: 70vh;
+    height: fit-content;
+    max-height: fit-content;
+    padding: 5px 8px 0px 8px;
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.2), 0 0px 5px rgba(0, 0, 0, 0.19);
+}
+
+.div-settings {
+    padding: 10px 20px 0px 20px;
+    width: 150px;
+    height: 150px;
+    border-radius: 90px;
+    text-align: center;
+    padding: 50px 20px 10px 20px;
+}

@@ -10,13 +10,15 @@ public class IncomeDTO {
 
     private Long incomeId;
 
-    private YearMonth dateOfEntry;
+    private String dateOfEntry;
 
     private double amount;
 
     private String category;
 
     private String description;
+
+    private int dayOfTheMonth;
 
     public IncomeDTO getIncomeDto(){
         IncomeDTO incomeDto = new IncomeDTO();
@@ -26,6 +28,7 @@ public class IncomeDTO {
         incomeDto.setAmount(amount);
         incomeDto.setDescription(description);
         incomeDto.setDateOfEntry(dateOfEntry);
+        incomeDto.setDayOfTheMonth(dayOfTheMonth);
 
         return incomeDto;
     }
