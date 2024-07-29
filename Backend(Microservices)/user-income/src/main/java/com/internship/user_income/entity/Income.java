@@ -20,7 +20,10 @@ public class Income {
     private Long incomeId;
 
     @Column(nullable = false, updatable = false)
-    private YearMonth dateOfEntry;
+    private String dateOfEntry;
+
+    @Column(nullable = false, updatable = false)
+    private int dayOfTheMonth;
 
     private double amount;
 
@@ -28,10 +31,12 @@ public class Income {
 
     private String description;
 
+
     @PrePersist
     protected void onCreate() {
 
-        dateOfEntry = YearMonth.now(); // Set the entry date before persisting
+        dateOfEntry = YearMonth.now().toString();
+        dayOfTheMonth=LocalDate.now().getDayOfMonth();
     }
 
 }

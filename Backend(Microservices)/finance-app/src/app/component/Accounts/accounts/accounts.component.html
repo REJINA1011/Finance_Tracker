@@ -1,0 +1,62 @@
+<form [formGroup]="form">
+    <label for="monthInput">Select Month:</label>
+    <input id="monthInput" type="month" formControlName="month" (change)="onMonthChange($event)">
+</form>
+<table class="table" *ngIf="accountLists!=null; else noAccounts"
+    style="background-color: white;margin:20px;width:80vw;color: black;">
+    <thead class="table-head">
+        <tr>
+            <th scope="col">Date of Entry</th>
+            <th scope="col">Income Amount</th>
+            <th scope="col">Allocated on Needs</th>
+            <th scope="col">Total on Needs</th>
+            <th scope="col">Available Amount</th>
+            <th scope="col">Allocated on Wants</th>
+            <th scope="col">Total on Wants</th>
+            <th scope="col">Available Amount</th>
+            <th scope="col">Allocated on Savings</th>
+            <th scope="col">Total on Savings</th>
+            <th scope="col">Availale Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{accountLists.date}}</td>
+            <td>{{accountLists.income}}</td>
+            <td> {{accountLists.allocatedNeeds}}</td>
+            <td> {{accountLists.spentOnNeeds}}</td>
+            <td [ngClass]="{'table-success': needsDeviation>=0, 'table-danger':needsDeviation<0}">
+                {{needsDeviation}}</td>
+            <td> {{accountLists.allocatedWants}}</td>
+            <td> {{accountLists.spentOnWants}}</td>
+            <td [ngClass]="{'table-success': wantsDeviation>=0, 'table-danger':wantsDeviation<0}">
+                {{wantsDeviation}}</td>
+            <td> {{accountLists.allocatedSavings}}</td>
+            <td> {{accountLists.spendOnSavings}}</td>
+            <td [ngClass]="{'table-success': savingsDeviation>=0, 'table-danger':savingsDeviation<0}">
+                {{savingsDeviation}}</td>
+        </tr>
+    </tbody>
+</table>
+<ng-template #noAccounts>
+    <p>No Data entered for the given month</p>
+    <table class="table" style="background-color: white;margin:20px;width:80vw;color: black;">
+        <thead class="table-head">
+            <tr>
+                <th scope="col">Date of Entry</th>
+                <th scope="col">Income Amount</th>
+                <th scope="col">Allocated on Needs</th>
+                <th scope="col">Total on Needs</th>
+                <th scope="col">Available Amount</th>
+                <th scope="col">Allocated on Wants</th>
+                <th scope="col">Total on Wants</th>
+                <th scope="col">Available Amount</th>
+                <th scope="col">Allocated on Savings</th>
+                <th scope="col">Total on Savings</th>
+                <th scope="col">Availale Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</ng-template>

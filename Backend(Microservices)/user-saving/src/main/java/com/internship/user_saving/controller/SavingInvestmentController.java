@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/saving")
 @RequiredArgsConstructor
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:4200")
 public class SavingInvestmentController {
 
     private final SavingInvestmentImpl savingInvestment;
@@ -35,46 +35,53 @@ public class SavingInvestmentController {
     private ResponseEntity<ApiResponse> getAllListedSavings(){
         List<SavingAndInvestment> savingsList = savingInvestment.getAllAddedSavings();
 
-        if(savingsList!=null){
-            ApiResponse response= ApiResponse.builder().message("List of total saving").data(savingsList).build();
-            return new ResponseEntity<>(response, HttpStatus.FOUND);
+        if(savingsList.isEmpty()){
+            ApiResponse response= ApiResponse.builder().message("No entries currently made").data(null).build();
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }else{
-            ApiResponse response= ApiResponse.builder().message("No List of savings Found").data(null).build();
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            ApiResponse response= ApiResponse.builder().message("List of total saving").data(savingsList).build();
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 
     //get all Savings for the given month
     @GetMapping("/getAllSavings/{monthOfSavingsEntered}")
-    private ResponseEntity<ApiResponse> getSavingsByDate(@PathVariable YearMonth monthOfSavingsEntered) {
+    private ResponseEntity<ApiResponse> getSavingsByDate(@PathVariable String monthOfSavingsEntered) {
         List<SavingAndInvestment> savings= savingInvestment.getSavingsByDate(monthOfSavingsEntered);
 
-        if(savings!=null){
-            ApiResponse response= ApiResponse.builder().message("List of Expenses on the given month").data(savings).build();
-            return new ResponseEntity<>(response, HttpStatus.FOUND);
+        if(savings.isEmpty()){
+            ApiResponse response= ApiResponse.builder().message("No entries currently made").data(null).build();
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }else{
-            ApiResponse response= ApiResponse.builder().message("No List of Expenses on the given month found").data(null).build();
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            ApiResponse response= ApiResponse.builder().message("List of Expenses on the given month").data(savings).build();
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 
     //get all the savings as per date i.e. year, month and year
     @GetMapping("/getAllSavings/{monthOfSavingsEntered}/{dayOfSavingsEntered}")
-    private ResponseEntity<ApiResponse> getSavingsByDate(@PathVariable YearMonth monthOfSavingsEntered, @PathVariable int dayOfSavingsEntered) {
+    private ResponseEntity<ApiResponse> getSavingsByDate(@PathVariable String monthOfSavingsEntered, @PathVariable int dayOfSavingsEntered) {
 
         List<SavingAndInvestment> dayOfSavings= savingInvestment.getSavingsByDay(monthOfSavingsEntered,dayOfSavingsEntered);
 
-        if(dayOfSavings!=null){
-            ApiResponse response= ApiResponse.builder().message("List of Expenses on the given month").data(dayOfSavings).build();
-            return new ResponseEntity<>(response, HttpStatus.FOUND);
+        if(dayOfSavings.isEmpty()){
+            ApiResponse response= ApiResponse.builder().message("No entries currently").data(null).build();
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }else{
-            ApiResponse response= ApiResponse.builder().message("No List of Expenses on the given month found").data(null).build();
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            ApiResponse response= ApiResponse.builder().message("List of Savings on the given month").data(dayOfSavings).build();
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 
-    @GetMapping("/getSavingAmount/{dateOfEntry}")
-    private List<Double> getSavingsAmount(@PathVariable YearMonth dateOfEntry){
+    //get total of the given month
+    @GetMapping("/getSavingAmounts/{dateOfEntry}")
+    private double getSavingsAmount(@PathVariable String dateOfEntry){
         return savingInvestment.getSavingsAmount(dateOfEntry);
+    }
+
+    //get total savings of the current day
+    @GetMapping("/getSavingAmount/{dateOfEntry}/{dayOfMonth}")
+    private double getSavingsAmountCurrentDay(@PathVariable String dateOfEntry,@PathVariable String dayOfMonth){
+        return savingInvestment.getSavingsAmountCurrentDay(dateOfEntry,dayOfMonth);
     }
 }

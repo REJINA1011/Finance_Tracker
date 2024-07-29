@@ -16,6 +16,11 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL8Dialect
+#  redis:
+#    host: localhost
+#    port: 6379
+#  session:
+#    store-type: redis
 
 eureka:
   client:

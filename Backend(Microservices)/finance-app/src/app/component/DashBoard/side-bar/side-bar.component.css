@@ -1,0 +1,49 @@
+.primary {
+    height: 100vh;
+    width: 200px;
+    position: static;
+    flex-grow: 0;
+    /* background-color:rgb(34,46, 80) ;   */
+    background-color: #001524;
+}
+
+.button-settings {
+    transition-duration: 0.3s;
+    height: 50px;
+    /* max-height: 90px; */
+    font-size: 15px;
+    color: white;
+
+}
+
+.icon-setting {
+    font-size: 15px;
+    margin: 20px 10px 0px 20px;
+}
+
+.button-settings:hover {
+    background-color: rgba(60, 123, 168, 0.3);
+    padding-left: 10px;
+
+}
+
+hr {
+    height: 100vh;
+    border: none;
+    background: black;
+    margin: 0px 0px 0px 30px;
+    width: 1px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.title {
+    color: white;
+    padding: 50px 0px 0px 20px;
+    height: 120px;
+    min-height: 70px;
+    max-height: 150px;
+    font-size: 15px;
+}

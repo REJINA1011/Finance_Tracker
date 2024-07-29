@@ -11,11 +11,14 @@ import java.util.List;
 @Repository
 public interface SavingAndInvestmentRepository extends JpaRepository<SavingAndInvestment,Long> {
     @Query("SELECT saving.amount FROM SavingAndInvestment saving WHERE saving.dateOfEntry=:date")
-    List<Double> getSavingAmounts(YearMonth date);
+    List<Double> getSavingAmounts(String date);
 
     @Query("SELECT saving FROM SavingAndInvestment saving WHERE saving.dateOfEntry=:monthOfSavingsEntered")
-    List<SavingAndInvestment> findAllByDate(YearMonth monthOfSavingsEntered);
+    List<SavingAndInvestment> findAllByDate(String monthOfSavingsEntered);
 
     @Query("SELECT saving FROM SavingAndInvestment saving WHERE saving.dateOfEntry=:monthOfSavingsEntered AND saving.dayOfTheMonth=:dayOfSavingsEntered")
-    List<SavingAndInvestment> findAllByDay(YearMonth monthOfSavingsEntered, int dayOfSavingsEntered);
+    List<SavingAndInvestment> findAllByDay(String monthOfSavingsEntered, int dayOfSavingsEntered);
+
+    @Query("SELECT saving.amount FROM SavingAndInvestment saving WHERE saving.dateOfEntry=:dateOfEntry AND saving.dayOfTheMonth=:dayOfMonth")
+    List<Double> getSavingAmountGivenDate(String dateOfEntry, String dayOfMonth);
 }

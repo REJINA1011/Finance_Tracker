@@ -10,7 +10,7 @@ import java.time.YearMonth;
 public class SavingAndInvestmentDTO {
     private Long savingInvestmentId;
 
-    private YearMonth dateOfEntry;
+    private String dateOfEntry;
 
     private double amount;
 

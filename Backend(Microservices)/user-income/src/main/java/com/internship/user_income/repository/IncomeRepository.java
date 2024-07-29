@@ -12,8 +12,8 @@ public interface IncomeRepository extends JpaRepository<Income,Long> {
 
 
     @Query("SELECT income.amount FROM Income income where income.dateOfEntry=:date")
-    List<Double> getAllIncomeAmount(YearMonth date);
+    List<Double> getAllIncomeAmount(String date);
 
     @Query("SELECT income FROM Income income where income.dateOfEntry=:dateOfIncomeEntered")
-    List<Income> findByDate(YearMonth dateOfIncomeEntered);
+    List<Income> findByDate(String dateOfIncomeEntered);
 }

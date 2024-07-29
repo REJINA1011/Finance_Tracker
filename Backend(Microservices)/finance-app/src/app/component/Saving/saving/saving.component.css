@@ -1,0 +1,22 @@
+.title {
+    position: sticky;
+    height: 30px;
+    margin-top: 0;
+}
+
+.income-details {
+    display: flex;
+    flex-direction: row;
+}
+
+app-saving-form {
+    flex: 6;
+}
+
+app-saving-details {
+    background-color: white;
+    border-radius: 20px;
+    max-height: fit-content;
+    margin: 0px 20px 0px 0px;
+    flex: 4;
+}

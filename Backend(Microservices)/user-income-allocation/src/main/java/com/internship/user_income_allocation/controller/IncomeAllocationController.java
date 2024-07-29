@@ -1,7 +1,6 @@
 package com.internship.user_income_allocation.controller;
 
-import com.internship.user_income_allocation.dto.IncomeAllocationDTO;
-
+import com.internship.user_income_allocation.entity.ApiResponse;
 import com.internship.user_income_allocation.entity.IncomeAllocation;
 
 import com.internship.user_income_allocation.service.IncomeAllocationServiceImpl;
@@ -11,21 +10,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/incomeAllocator")
 @RequiredArgsConstructor
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:4200")
 
 public class IncomeAllocationController {
 
     private final IncomeAllocationServiceImpl allocationService;
 
     @GetMapping("/addDetails/{incomeEntryDate}")
-    private ResponseEntity<?> addIncomeAllocation( @PathVariable YearMonth incomeEntryDate){
+    private ResponseEntity<?> addIncomeAllocation( @PathVariable String incomeEntryDate){
         IncomeAllocation createIncomeAllocationDTO = allocationService.addIncomeAllocationDetails(incomeEntryDate);
 
         if(createIncomeAllocationDTO!=null){
@@ -35,9 +32,12 @@ public class IncomeAllocationController {
         }
     }
 
-    @GetMapping("/getAllIncomeAllocations/{dateOfEntry}")
-    private IncomeAllocation getAllIncomeAllocations(@PathVariable YearMonth dateOfEntry){
-        return allocationService.getIncomeAllocations(dateOfEntry);
+    @GetMapping("/getAllIncomeAllocations")
+    private List<IncomeAllocation> getAllIncomeAllocations(){
+        return allocationService.getIncomeAllocations();
     }
-
+    @GetMapping("/getAllIncomeAllocations/{yearMonth}")
+    private IncomeAllocation getIncomeAllocationsByDate(@PathVariable String yearMonth){
+        return allocationService.getIncomeAllocationsByYearMonth(yearMonth);
+    }
 }

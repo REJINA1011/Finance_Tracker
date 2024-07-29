@@ -10,7 +10,7 @@ public class IncomeAllocationDTO {
 
     private Long incomeAllocationId;
 
-    private YearMonth dateOfEntry;
+    private String dateOfEntry;
 
     private double incomeAmount;
 

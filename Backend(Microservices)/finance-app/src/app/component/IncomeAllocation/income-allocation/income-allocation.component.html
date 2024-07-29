@@ -1,0 +1,41 @@
+<form [formGroup]="form">
+    <label for="monthInput">Select Month:</label>
+    <input id="monthInput" type="month" formControlName="month" (change)="onMonthChange($event)">
+</form>
+<table class="table" *ngIf="incomeAllocationList!=null; else noAllocations"
+    style="background-color: white;margin:20px;width:80vw;border-radius: 20px;">
+    <thead class="table-head">
+        <tr>
+            <th scope="col">Date of Entry</th>
+            <th scope="col">Income Amount</th>
+            <th scope="col">Needs</th>
+            <th scope="col">Wants</th>
+            <th scope="col">Savings</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{incomeAllocationList.dateOfEntry}}</td>
+            <td>{{incomeAllocationList.incomeAmount}}</td>
+            <td> {{incomeAllocationList.expensesOnNeeds}}</td>
+            <td> {{incomeAllocationList.expensesOnWants}}</td>
+            <td> {{incomeAllocationList.savingAmount}}</td>
+        </tr>
+    </tbody>
+</table>
+<ng-template #noAllocations>
+    <p>No Data entered for the given month</p>
+    <table class="table" style="background-color: white;margin:20px;width:80vw;border-radius: 20px;">
+        <thead class="table-head">
+            <tr>
+                <th scope="col">Date of Entry</th>
+                <th scope="col">Income Amount</th>
+                <th scope="col">Needs</th>
+                <th scope="col">Wants</th>
+                <th scope="col">Savings</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</ng-template>

@@ -1,10 +1,13 @@
 package com.internship.user_expense.service;
 
 import com.internship.user_expense.dto.ExpenseDTO;
+import com.internship.user_expense.entity.ApiResponse;
 import com.internship.user_expense.entity.ExpenseCategory;
 import com.internship.user_expense.entity.Expenses;
 import com.internship.user_expense.repository.ExpenseRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.YearMonth;
@@ -22,7 +25,6 @@ public class ExpenseServiceImpl implements ExpenseService {
         expenses.setExpenseId(expenseDTO.getExpenseId());
         expenses.setDateOfExpense(expenseDTO.getDateOfExpense());
         expenses.setDescription(expenseDTO.getDescription());
-        expenses.setTitle(expenseDTO.getTitle());
 
         ExpenseCategory categoryCheck=expenseDTO.getCategory();
         if (categoryCheck == ExpenseCategory.NEEDS || categoryCheck== ExpenseCategory.WANTS) {
@@ -40,16 +42,36 @@ public class ExpenseServiceImpl implements ExpenseService {
         return expenseRepository.findAll();
     }
 
-    public List<Expenses> getExpenseByDate(YearMonth monthOfExpenseEntered) {
+    public List<Expenses> getExpenseByDate(String monthOfExpenseEntered) {
         return expenseRepository.findAllByMonth(monthOfExpenseEntered);
     }
 
-    public List<Expenses> getExpenseByDay(YearMonth monthOfExpenseEntered, int dayOfExpenseEntered) {
+    public List<Expenses> getExpenseByDay(String monthOfExpenseEntered, int dayOfExpenseEntered) {
         return expenseRepository.findByDay(monthOfExpenseEntered,dayOfExpenseEntered);
 
     }
 
-    public List<Double> getAllExpensesByCategory(YearMonth yearMonth, ExpenseCategory category) {
-        return expenseRepository.getAmountsAsPerCategory(yearMonth,category);
+    public double getAllExpensesByCategory(String yearMonth, ExpenseCategory category) {
+        double totalAmount=0;
+        List<Double> amountsList=expenseRepository.getAmountsAsPerCategory(yearMonth,category);
+        for(double amount:amountsList) {
+            totalAmount += amount;
+        }
+        return totalAmount;
+    }
+
+    public List<Expenses> getAllExpensesEachDayByCategory(String yearMonth, int dayOfEntry, ExpenseCategory category) {
+        return expenseRepository.getExpensesEachDayAsPerCategory(yearMonth,dayOfEntry,category);
+    }
+
+    public double getAllExpensesPerDayByCategory(String yearMonth, int dayOfEntry, ExpenseCategory category) {
+        double totalAmount=0;
+        List<Double> amounts=expenseRepository.getAmountsAsPerDayAndCategory(yearMonth,dayOfEntry,category);
+        if (!amounts.isEmpty()) {
+            for (double amount : amounts) {
+                totalAmount += amount;
+            }
+        }
+        return totalAmount;
     }
 }

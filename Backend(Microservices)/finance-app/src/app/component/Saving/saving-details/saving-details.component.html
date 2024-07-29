@@ -1,0 +1,24 @@
+<div>
+    <p style="margin: 20px; font-size: 20px; font-weight: 500;">
+        Savings Lists
+    </p>
+    <div *ngIf="savingList.data" style=" width: 400px; height:470px;overflow-y: auto;overflow-x: hidden;">
+        <div *ngFor="let income of savingList.data" class="row"
+            style="margin:20px; padding: 20px; border-radius: 20px; background-color: rgba(68, 93, 72,0.1);  box-shadow: 0 0px 0px rgba(111, 161, 218, 0.2), 0 0px 5px rgba(0, 0, 0, 0.19); height: fit-content; color:rgba(68, 93, 72);font-weight: 500;">
+            <div style="margin-right: 1cm;text-align: left; ">
+                <!-- <p>Income Id</p> -->
+                <p>Month Of Entry</p>
+                <p>Amount</p>
+                <p>Category</p>
+                <p>Description</p>
+            </div>
+            <div style="text-align: right;">
+                <!-- <p>{{ income.incomeId }}</p> -->
+                <p>{{ income.dateOfEntry }}</p>
+                <p>{{ income.amount}}</p>
+                <p>{{ income.category }}</p>
+                <p style="width: 4cm;">{{ income.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>

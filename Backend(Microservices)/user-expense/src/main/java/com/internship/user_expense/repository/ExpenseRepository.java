@@ -15,12 +15,17 @@ import java.util.List;
 public interface ExpenseRepository extends JpaRepository<Expenses, Long> {
 
     @Query("SELECT expense.amount FROM Expenses expense WHERE expense.dateOfExpense=:date AND expense.category=:category ")
-    List<Double> getAmountsAsPerCategory(YearMonth date, ExpenseCategory category);
+    List<Double> getAmountsAsPerCategory(String date, ExpenseCategory category);
 
     @Query("SELECT expense FROM Expenses expense WHERE expense.dateOfExpense=:monthOfExpenseEntered")
-    List<Expenses> findAllByMonth(YearMonth monthOfExpenseEntered);
+    List<Expenses> findAllByMonth(String monthOfExpenseEntered);
 
     @Query("SELECT expense FROM Expenses expense WHERE expense.dateOfExpense=:monthOfExpenseEntered AND expense.dayOfTheMonth=:dayOfExpenseEntered")
-    List<Expenses> findByDay(YearMonth monthOfExpenseEntered, int dayOfExpenseEntered);
+    List<Expenses> findByDay(String monthOfExpenseEntered, int dayOfExpenseEntered);
 
+    @Query("SELECT expense FROM Expenses expense WHERE expense.dateOfExpense=:yearMonth AND expense.dayOfTheMonth=:dayOfEntry AND expense.category=:category ")
+    List<Expenses> getExpensesEachDayAsPerCategory(String yearMonth, int dayOfEntry, ExpenseCategory category);
+
+    @Query("SELECT expense.amount FROM Expenses expense WHERE expense.dateOfExpense=:yearMonth AND expense.dayOfTheMonth=:dayOfEntry AND expense.category=:category ")
+    List<Double> getAmountsAsPerDayAndCategory(String yearMonth, int dayOfEntry, ExpenseCategory category);
 }

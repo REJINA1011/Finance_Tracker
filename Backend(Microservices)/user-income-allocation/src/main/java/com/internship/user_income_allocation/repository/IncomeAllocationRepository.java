@@ -12,7 +12,6 @@ import java.util.List;
 
 @Repository
 public interface IncomeAllocationRepository extends JpaRepository<IncomeAllocation,Long> {
-   @Query("SELECT incomeAllocation FROM IncomeAllocation incomeAllocation where incomeAllocation.dateOfEntry=:date")
-   IncomeAllocation getAllAmount(YearMonth date);
-
+   @Query("SELECT incomeAllocation FROM IncomeAllocation incomeAllocation where incomeAllocation.dateOfEntry=:yearMonth")
+   IncomeAllocation getAllocationsByYearMonth(String yearMonth);
 }

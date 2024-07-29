@@ -15,7 +15,7 @@ public class Accounts {
     private Long accountId;
 
     @Column(nullable = false, updatable = false)
-    private YearMonth date;
+    private String date;
 
     private double income;
 

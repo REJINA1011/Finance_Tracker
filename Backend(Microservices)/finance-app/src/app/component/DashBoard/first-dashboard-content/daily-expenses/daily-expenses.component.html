@@ -1,0 +1,40 @@
+<div class="border-settings">
+    <h6>Daily Expenses</h6>
+    <div style="height: 260px; max-height: 300px;margin-left: 30px;">
+        <div class="div-settings" style="
+        background-color:  #445D48;
+        position: absolute;
+        margin: 0px 0px 0px 10px;
+        color: #ffffff;
+        text-align: center;
+        ">
+            <!-- <a routerLink="/dashboard/savingsEachDay" style="font-size: 15px;color: rgb(93, 93, 100);">View Details</a> -->
+            <i>Savings</i>
+            <p style=" font-size:20px;font-weight:500">Rs {{ savingValue }}</p>
+
+        </div>
+        <div class="div-settings" style="
+        background-color: #bae9fd;
+        margin: 100px 0px 0px 80px;
+        position: absolute;
+        color: #272838;
+        ">
+            <i style="text-align: center; font-size: 17px">Wants</i>
+            <!-- <a routerLink="/dashboard/expenseWantsEachDay" style="margin-left: 100px; font-size: 15px;color: rgb(93, 93, 100);">View Details</a> -->
+            <p style=" font-size:20px;font-weight:500">Rs {{ wantsValue }}</p>
+        </div>
+        <div class="div-settings" style="
+        background-color:#001524;
+        margin: 20px 0px 0px 120px;
+        color: #ffffff;
+        ">
+            <i style="text-align: center; font-size: 17px">Needs</i>
+            <!-- <a routerLink="/dashboard/expenseEachDay" style="margin-left: 100px; font-size: 15px;color: rgb(93, 93, 100);">View Details</a> -->
+            <p style=" font-size:20px;font-weight:500">Rs {{ needsValue }}</p>
+        </div>
+    </div>
+    <div>
+        <app-expense-indicator></app-expense-indicator>
+    </div>
+
+</div>
