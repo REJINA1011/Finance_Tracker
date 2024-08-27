@@ -18,6 +18,8 @@ public class IncomeAllocationDTO {
     private double expensesOnWants;
     private double savingAmount;
 
+    private Long userId;
+
     public IncomeAllocationDTO getIncomeAllocationDto(){
         IncomeAllocationDTO incomeAllocationDto = new IncomeAllocationDTO();
 
@@ -27,6 +29,7 @@ public class IncomeAllocationDTO {
         incomeAllocationDto.setExpensesOnWants(expensesOnWants);
         incomeAllocationDto.setSavingAmount(savingAmount);
         incomeAllocationDto.setDateOfEntry(dateOfEntry);
+        incomeAllocationDto.setUserId(userId);
 
         return incomeAllocationDto;
     }

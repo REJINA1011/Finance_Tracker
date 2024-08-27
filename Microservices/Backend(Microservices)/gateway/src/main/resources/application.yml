@@ -1,0 +1,105 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            allowedHeaders: "*"
+            allowCredentials: true
+      routes:
+        - id: user-register
+          uri: http://localhost:8086
+          predicates:
+            - Path=api/users/register
+        - id: user-login
+          uri: http://localhost:8086
+          predicates:
+            - Path=api/users/login
+        - id: getUserId
+          uri: http://localhost:8086
+          predicates:
+            - Path=api/users/getUserId
+        - id: user-service
+          uri: http://localhost:8086
+          predicates:
+            - Path=api/users/getUserData/**
+        - id: income-details
+          uri: http://localhost:8081
+          predicates:
+            - Path=api/income/addIncomeDetails/**
+        - id: income-details-by-dates
+          uri: http://localhost:8086
+          predicates:
+            - Path=api/income/getAllIncomes/**
+        - id: income-details-by-dates
+          uri: http://localhost:8086
+          predicates:
+            - Path=api/income/getAllIncomeAmount/**
+        - id: add-expenses-details
+          uri: http://localhost:8082
+          predicates:
+            - Path=api/expenses/addExpenseDetails/**
+        - id: get-expenses-by-userId
+          uri: http://localhost:8082
+          predicates:
+            - Path=api/expenses/getAllExpensesByUserId/**
+        - id: get-expenses-by-date
+          uri: http://localhost:8082
+          predicates:
+            - Path=api/expenses/getAllExpenses/**
+        - id: get-expenses-amount
+          uri: http://localhost:8082
+          predicates:
+            - Path=api/expenses/getAllExpensesAmount/**
+        - id: get-expenses-by-userId
+          uri: http://localhost:8082
+          predicates:
+            - Path=api/expenses/getAllExpensesByUserId/**
+        - id: addSavingsDetails
+          uri: http://localhost:8083
+          predicates:
+            - Path=api/saving/addSavingDetails/**
+        - id: getSavingsDetails
+          uri: http://localhost:8083
+          predicates:
+            - Path=api/saving/getSavings/**
+        - id: get-all-Savings-by-date
+          uri: http://localhost:8083
+          predicates:
+            - Path=api/saving/getAllSavings/**
+        - id: get-all-Savings-amount
+          uri: http://localhost:8083
+          predicates:
+            - Path=api/saving/getAllSavingAmounts/**
+        - id: get-all-Savings-amount-each-day
+          uri: http://localhost:8083
+          predicates:
+            - Path=api/saving/getAllSavingAmount/**
+        - id: add-income-allocations
+          uri: http://localhost:8084
+          predicates:
+            - Path=api/incomeAllocator/addDetails/**
+        - id: get-income-allocations
+          uri: http://localhost:8084
+          predicates:
+            - Path=api/incomeAllocator/getAllIncome/**
+        - id: addDetails
+          uri: http://localhost:8085
+          predicates:
+            - Path=api/accounts/addDetails/**
+
+server:
+  port: 8000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

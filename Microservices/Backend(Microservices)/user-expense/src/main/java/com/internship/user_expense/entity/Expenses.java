@@ -15,6 +15,9 @@ public class Expenses {
     private Long expenseId;
 
     @Column(nullable = false, updatable = false)
+    private String date;
+
+    @Column(nullable = false, updatable = false)
     private String dateOfExpense;
 
     @Column(nullable = false, updatable = false)
@@ -27,9 +30,12 @@ public class Expenses {
 
     private String description;
 
+    private Long userId;
+
     @PrePersist
     protected void onCreate() {
         dateOfExpense = YearMonth.now().toString();// Set the entry date before persisting
         dayOfTheMonth=LocalDate.now().getDayOfMonth();
+        date=LocalDate.now().toString();
     }
 }

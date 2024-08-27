@@ -12,12 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserServicesImpl {
     @Autowired
     UserRepository userRepository;
 
-    private DataResponse dataResponse= new DataResponse();
 
     public void addNewUser(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
@@ -26,14 +27,13 @@ public class UserServicesImpl {
         userRepository.save(user);
     }
 
-    public String loginUser(UserDTO oldUser, HttpSession session) {
+    public void loginUser(UserDTO oldUser, HttpSession session) {
         User userInformation=userRepository.getUser(oldUser.getEmail(),oldUser.getPassword());
 
         if(userInformation==null){
             throw new UserNotFoundException("User with the given credentials not found");
         }
         session.setAttribute("email",userInformation.getEmail());
-        return "success";
     }
 
     public Long getUserId(String email) {
@@ -42,5 +42,14 @@ public class UserServicesImpl {
             throw new UserNotFoundException("User Not Found");
         }
         return userId;
+    }
+    public DataResponse getUserByEmail(String email){
+        Optional<User> optionalUser = this.userRepository.findByEmail(email);
+        if(optionalUser.isPresent()){
+            return  new DataResponse("User Found in db",optionalUser.get());
+        }
+        else {
+            throw new UserNotFoundException("Email not found");
+        }
     }
 }

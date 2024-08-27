@@ -31,12 +31,17 @@ public class Income {
 
     private String description;
 
+    private Long userId;
+
+    @Column(nullable = false, updatable = false)
+    private String date;
 
     @PrePersist
     protected void onCreate() {
 
         dateOfEntry = YearMonth.now().toString();
         dayOfTheMonth=LocalDate.now().getDayOfMonth();
+        date=LocalDate.now().toString();
     }
 
 }

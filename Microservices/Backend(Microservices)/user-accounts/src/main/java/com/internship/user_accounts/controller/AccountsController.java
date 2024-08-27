@@ -16,14 +16,24 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/accounts")
 @RequiredArgsConstructor
-@CrossOrigin("*")
+@CrossOrigin(
+        origins = {
+                "http://localhost:4200"
+        },
+        methods = {
+                RequestMethod.OPTIONS,
+                RequestMethod.GET,
+                RequestMethod.PUT,
+                RequestMethod.DELETE,
+                RequestMethod.POST
+        })
 public class AccountsController {
 
     private final AccountsServiceImpl accountsService;
 
-    @GetMapping("/addDetails/{entryDate}")
-    private ResponseEntity<?> addAccount(@PathVariable String entryDate){
-       Accounts createAccounts = accountsService.addAccountsDetails(entryDate);
+    @GetMapping("/addDetails/{entryDate}/{userId}")
+    private ResponseEntity<?> addAccount(@PathVariable String entryDate,@PathVariable Long userId){
+       Accounts createAccounts = accountsService.addAccountsDetails(entryDate,userId);
         if(createAccounts!=null){
             return ResponseEntity.status(HttpStatus.CREATED).body(createAccounts);
         }else {

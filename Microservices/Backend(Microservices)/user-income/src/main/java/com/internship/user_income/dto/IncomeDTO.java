@@ -20,6 +20,9 @@ public class IncomeDTO {
 
     private int dayOfTheMonth;
 
+    private Long userId;
+
+    private String date;
     public IncomeDTO getIncomeDto(){
         IncomeDTO incomeDto = new IncomeDTO();
 
@@ -29,6 +32,8 @@ public class IncomeDTO {
         incomeDto.setDescription(description);
         incomeDto.setDateOfEntry(dateOfEntry);
         incomeDto.setDayOfTheMonth(dayOfTheMonth);
+        incomeDto.setUserId(userId);
+        incomeDto.setDate(date);
 
         return incomeDto;
     }

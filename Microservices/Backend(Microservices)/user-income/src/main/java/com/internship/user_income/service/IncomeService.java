@@ -7,7 +7,7 @@ import java.time.YearMonth;
 import java.util.List;
 
 public interface IncomeService {
-    Income addIncome(IncomeDTO incomeDTO);
+    Income addIncome(IncomeDTO incomeDTO,Long userId);
     List<Income> getAllAddedIncomes();
-    List<Income> getIncomesByDate(String dateOfIncomeEntered);
+    List<Income> getIncomesByDate(String dateOfIncomeEntered, Long userId);
 }

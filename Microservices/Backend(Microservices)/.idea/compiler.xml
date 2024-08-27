@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -11,17 +12,21 @@
         <module name="user-income-allocation" />
         <module name="discovery_server" />
         <module name="UserInterface" />
-        <module name="account-status" />
         <module name="user-accounts" />
+        <module name="gateway" />
         <module name="user-expense" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="account-status" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="UserInterface" options="-parameters" />
       <module name="account-status" options="-parameters" />
       <module name="discovery_server" options="-parameters" />
+      <module name="gateway" options="-parameters" />
       <module name="user-accounts" options="-parameters" />
       <module name="user-expense" options="-parameters" />
       <module name="user-income" options="-parameters" />

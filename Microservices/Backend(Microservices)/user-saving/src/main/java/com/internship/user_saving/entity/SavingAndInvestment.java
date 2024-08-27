@@ -21,6 +21,11 @@ public class SavingAndInvestment {
 
     private double amount;
 
+    private Long userId;
+
+    @Column(nullable = false, updatable = false)
+    private String date;
+
     @Enumerated(EnumType.STRING)
     private SavingAndInvestmentCategory category;
 
@@ -31,5 +36,6 @@ public class SavingAndInvestment {
 
         dateOfEntry = YearMonth.now().toString();
         dayOfTheMonth=LocalDate.now().getDayOfMonth();
+        date=LocalDate.now().toString();
     }
 }

@@ -1,7 +1,7 @@
 
 spring:
   application:
-    name= user-interface:
+    name: user-interface
   datasource:
     url: jdbc:mysql://localhost:3306/finance_user
     username: root

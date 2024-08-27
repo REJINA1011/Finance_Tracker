@@ -24,21 +24,21 @@ public class  AccountsServiceImpl implements AccountServices{
 
     private final AccountsRepository accountsRepository;
 
-    private Accounts addAccounts(String date, Accounts accounts){
+    private Accounts addAccounts(String date, Accounts accounts,Long userId){
 
         //to get allocated income, expenses and saving amount
 
-        IncomeAllocations incomeAmountDetails = restTemplate.getForObject("http://user-income-allocation/api/incomeAllocator/getAllIncomeAllocations/"+date, IncomeAllocations.class );
+        IncomeAllocations incomeAmountDetails = restTemplate.getForObject("http://user-income-allocation/api/incomeAllocator/getAllIncomeAllocations/"+date+"/"+userId, IncomeAllocations.class );
 
         if(incomeAmountDetails==null){
             throw new DataNotFoundException("Data is not found");
         }
 
-        double spentOnNeedsList=restTemplate.getForObject("http://user-expense/api/expenses/getAllExpensesAmount/"+date+"/"+ExpenseCategory.NEEDS, Double.class);
+        double spentOnNeedsList=restTemplate.getForObject("http://user-expense/api/expenses/getAllExpensesAmount/"+date+"/"+ExpenseCategory.NEEDS+"/"+userId, Double.class);
         System.out.println("accounts needs:"+spentOnNeedsList);
-        double spentOnWantsList=restTemplate.getForObject("http://user-expense/api/expenses/getAllExpensesAmount/"+date+"/"+ExpenseCategory.WANTS, Double.class);
+        double spentOnWantsList=restTemplate.getForObject("http://user-expense/api/expenses/getAllExpensesAmount/"+date+"/"+ExpenseCategory.WANTS+"/"+userId, Double.class);
 
-        double spentOnSavingsList=restTemplate.getForObject("http://user-saving/api/saving/getSavingAmounts/"+date, Double.class);
+        double spentOnSavingsList=restTemplate.getForObject("http://user-saving/api/saving/getSavingAmounts/"+date+"/"+userId, Double.class);
 
         Accounts accountsObj =accountsRepository.getAllAccounts(date);
         if(accountsObj!=null){
@@ -49,6 +49,7 @@ public class  AccountsServiceImpl implements AccountServices{
             accountsObj.setSpentOnNeeds(spentOnNeedsList);
             accountsObj.setSpentOnWants(spentOnWantsList);
             accountsObj.setSpendOnSavings(spentOnSavingsList);
+            accountsObj.setUserId(userId);
 
             return accountsRepository.save(accountsObj);
         }
@@ -68,11 +69,12 @@ public class  AccountsServiceImpl implements AccountServices{
         accounts.setSpentOnNeeds(spentOnNeedsList);
         accounts.setSpentOnWants(spentOnWantsList);
         accounts.setSpendOnSavings(spentOnSavingsList);
+        accounts.setUserId(userId);
         return accountsRepository.save(accounts);
     }
 
-    public Accounts addAccountsDetails(String date) {
-        return addAccounts(date,new Accounts());
+    public Accounts addAccountsDetails(String date,Long userId) {
+        return addAccounts(date,new Accounts(),userId);
     }
 
     public Accounts getAccountDetails(String entryDate) {

@@ -20,7 +20,7 @@ public class AccountsDTO {
     private double spendOnSavings;
     private double allocatedSavings;
 
-
+    private Long userId;
     public AccountsDTO getAccountsDto(){
         AccountsDTO accountsDTO = new AccountsDTO();
 
@@ -33,6 +33,8 @@ public class AccountsDTO {
         accountsDTO.setAllocatedWants(allocatedWants);
         accountsDTO.setSpendOnSavings(spendOnSavings);
         accountsDTO.setSpendOnSavings(spendOnSavings);
+        accountsDTO.setUserId(userId);
+
 
         return accountsDTO;
     }

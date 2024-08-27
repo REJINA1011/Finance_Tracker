@@ -7,8 +7,8 @@ import java.time.YearMonth;
 import java.util.List;
 
 public interface ExpenseService {
-    Expenses addExpenses(ExpenseDTO expenseDTO);
+    Expenses addExpenses(ExpenseDTO expenseDTO, String email);
     List<Expenses> getAllAddedExpense();
-    List<Expenses> getExpenseByDate(String monthOfExpenseEntered);
+    List<Expenses> getExpenseByDate(String monthOfExpenseEntered,Long userId);
     List<Expenses> getExpenseByDay(String monthOfExpenseEntered, int dayOfExpenseEntered);
 }

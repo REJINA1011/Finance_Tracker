@@ -30,10 +30,10 @@ public class User {
     private String password;
 
     @Column(updatable = false)
-    YearMonth dateOfEntry;
+    String dateOfEntry;
 
     @PrePersist
     protected void onCreate() {
-        dateOfEntry = YearMonth.now(); // Set the entry date before persisting
+        dateOfEntry = YearMonth.now().toString(); // Set the entry date before persisting
     }
 }

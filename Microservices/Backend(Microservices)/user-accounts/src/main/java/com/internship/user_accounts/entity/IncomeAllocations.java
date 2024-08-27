@@ -25,5 +25,6 @@ public class IncomeAllocations {
 
     private double savingAmount;
 
+    private Long userId;
 
 }

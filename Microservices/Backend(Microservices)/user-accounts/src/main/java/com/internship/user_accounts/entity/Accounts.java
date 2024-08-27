@@ -26,4 +26,6 @@ public class Accounts {
     private double spendOnSavings;
     private double allocatedSavings;
 
+    private Long userId;
+
 }

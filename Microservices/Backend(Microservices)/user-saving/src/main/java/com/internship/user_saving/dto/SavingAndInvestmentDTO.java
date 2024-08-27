@@ -20,6 +20,9 @@ public class SavingAndInvestmentDTO {
 
     private int dayOfTheMonth;
 
+    private Long userId;
+
+    private String date;
     public SavingAndInvestmentDTO getSavingDto(){
        SavingAndInvestmentDTO savingInvestmentDto = new SavingAndInvestmentDTO();
 
@@ -29,6 +32,8 @@ public class SavingAndInvestmentDTO {
        savingInvestmentDto.setAmount(amount);
        savingInvestmentDto.setDescription(description);
        savingInvestmentDto.setDayOfTheMonth(dayOfTheMonth);
+       savingInvestmentDto.setUserId(userId);
+       savingInvestmentDto.setDate(date);
 
         return savingInvestmentDto;
     }

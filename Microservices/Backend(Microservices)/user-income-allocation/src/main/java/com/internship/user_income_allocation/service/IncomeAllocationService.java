@@ -8,5 +8,5 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 
 public interface IncomeAllocationService {
-    IncomeAllocation addIncomeAllocationDetails(String date);
+    IncomeAllocation addIncomeAllocationDetails(String date, Long userId);
 }

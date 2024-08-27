@@ -23,7 +23,7 @@ public class IncomeAllocation {
     private double expensesOnWants;
 
     private double savingAmount;
-
+    private Long userId;
 
     @PrePersist
     protected void onCreate() {

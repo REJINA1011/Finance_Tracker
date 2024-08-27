@@ -21,9 +21,9 @@ public class IncomeAllocationController {
 
     private final IncomeAllocationServiceImpl allocationService;
 
-    @GetMapping("/addDetails/{incomeEntryDate}")
-    private ResponseEntity<?> addIncomeAllocation( @PathVariable String incomeEntryDate){
-        IncomeAllocation createIncomeAllocationDTO = allocationService.addIncomeAllocationDetails(incomeEntryDate);
+    @GetMapping("/addDetails/{incomeEntryDate}/{userId}")
+    private ResponseEntity<?> addIncomeAllocation( @PathVariable String incomeEntryDate,@PathVariable Long userId){
+        IncomeAllocation createIncomeAllocationDTO = allocationService.addIncomeAllocationDetails(incomeEntryDate,userId);
 
         if(createIncomeAllocationDTO!=null){
             return ResponseEntity.status(HttpStatus.CREATED).body(createIncomeAllocationDTO);
@@ -36,8 +36,8 @@ public class IncomeAllocationController {
     private List<IncomeAllocation> getAllIncomeAllocations(){
         return allocationService.getIncomeAllocations();
     }
-    @GetMapping("/getAllIncomeAllocations/{yearMonth}")
-    private IncomeAllocation getIncomeAllocationsByDate(@PathVariable String yearMonth){
-        return allocationService.getIncomeAllocationsByYearMonth(yearMonth);
+    @GetMapping("/getAllIncomeAllocations/{yearMonth}/{userId}")
+    private IncomeAllocation getIncomeAllocationsByDate(@PathVariable String yearMonth,@PathVariable Long userId){
+        return allocationService.getIncomeAllocationsByYearMonth(yearMonth,userId);
     }
 }
