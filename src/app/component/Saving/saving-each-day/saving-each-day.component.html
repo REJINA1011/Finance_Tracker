@@ -1,0 +1,12 @@
+<div>
+  <div>{{savings.message}}</div>
+  <div *ngIf="savings.data">
+    <div *ngFor="let expensesPerDay of savings.data">
+      <p>{{ expensesPerDay.savingId }}</p>
+      <p>{{ expensesPerDay.dayOfTheMonth }}</p>
+      <p>{{ expensesPerDay.amount}}</p>
+      <p>{{ expensesPerDay.category}}</p>
+      <p>{{ expensesPerDay.description }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+.bar-container {
+    width: 50%;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 17px;
+    margin: 4px 10px 0px 10px;
+}
+
+.bar {
+    height: 20px;
+    background-color: #76c7c0;
+    width: 0;
+    transition: width 0.5s ease;
+}
+
+.indicate {
+    display: flex;
+    flex-direction: row;
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+    /* Ensures the borders are not double */
+}
+
+th,
+td {
+    padding: 10px;
+    /* Adds space inside the cells */
+    text-align: left;
+    /* Aligns text to the left */
+}
+
+th {
+    background-color: #f2f2f2;
+    /* Adds a background color to the header */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+    /* Adds a background color to even rows */
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+    /* Adds a hover effect to the rows */
+}

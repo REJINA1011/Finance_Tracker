@@ -1,0 +1,81 @@
+<form [formGroup]="form">
+    <label for="monthInput">Select Month:</label>
+    <input id="monthInput" type="month" formControlName="month" (change)="onMonthChange($event)">
+</form>
+<p style="text-align: center; font-weight: 500;">Income Amount</p>
+<p *ngIf="accountLists" style=" font-size:25px; text-align: center; font-weight: 600; color: green;">
+    {{accountLists.income}}
+</p>
+<div *ngIf="accountLists!=null; else noAccounts">
+    <!-- Needs Allocation Table -->
+    <p><strong>Needs Details</strong></p>
+    <table class="table" style="background-color: white;margin:20px;width:70vw;color: black;">
+        <thead class="table-head">
+            <tr>
+                <th scope="col">Date of Entry</th>
+                <th scope="col">Allocated on Needs</th>
+                <th scope="col">Total on Spent</th>
+                <th scope="col">Available Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{accountLists.date}}</td>
+                <td> {{accountLists.allocatedNeeds}}</td>
+                <td> {{accountLists.spentOnNeeds}}</td>
+                <td [ngClass]="{'table-success': needsDeviation>=0, 'table-danger':needsDeviation<0}">
+                    {{needsDeviation}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Wants Allocations Table-->
+    <p><strong>Wants Details</strong></p>
+    <table class="table" style="background-color: white;margin:20px;width:70vw;color: black;">
+        <thead class="table-head">
+            <tr>
+                <th scope="col">Date of Entry</th>
+                <th scope="col">Allocated on Wants</th>
+                <th scope="col">Total Spent</th>
+                <th scope="col">Available Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{accountLists.date}}</td>
+                <td> {{accountLists.allocatedWants}}</td>
+                <td> {{accountLists.spentOnWants}}</td>
+                <td [ngClass]="{'table-success': wantsDeviation>=0, 'table-danger':wantsDeviation<0}">
+                    {{wantsDeviation}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Savings Allocation Table -->
+    <p><strong>Savings Details</strong></p>
+    <table class="table" style="background-color: white;margin:20px;width:70vw;color: black;">
+        <thead class="table-head">
+            <tr>
+                <th scope="col">Date of Entry</th>
+                <th scope="col">Allocated on Savings</th>
+                <th scope="col">Total Saved</th>
+                <th scope="col">Availale Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{accountLists.date}}</td>
+                <td> {{accountLists.allocatedSavings}}</td>
+                <td> {{accountLists.spendOnSavings}}</td>
+                <td [ngClass]="{'table-success': savingsDeviation>=0, 'table-danger':savingsDeviation<0}">
+                    {{savingsDeviation}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #noAccounts>
+    <pre class="message"><i class="fa-solid fa-calendar-check plus-icon"></i>
+    Please select a month to generate your report
+    </pre>
+</ng-template>

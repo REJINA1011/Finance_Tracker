@@ -1,0 +1,20 @@
+<div>
+    <div *ngIf="needsValue.data" style=" width: 400px; height:470px;overflow-y: auto;overflow-x: hidden;">
+        <table *ngFor="let item of needsValue.data">
+            <thead class="table-head">
+                <tr>
+                    <th scope="col" colspan="3">Description</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="3">{{item.description}}</td>
+                    <td>{{item.category}}</td>
+                    <td> {{item.amount}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

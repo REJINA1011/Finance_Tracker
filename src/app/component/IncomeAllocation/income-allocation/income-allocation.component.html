@@ -1,0 +1,31 @@
+<h6>Generate Allocations </h6>
+<form [formGroup]="form">
+    <label for="monthInput">Select Month:</label>
+    <input id="monthInput" type="month" formControlName="month" (change)="onMonthChange($event)">
+</form>
+<table class="table" *ngIf="incomeAllocationList!=null; else noAllocations"
+    style="background-color: white;margin:20px;width:80vw;border-radius: 20px;">
+    <thead class="table-head">
+        <tr style="font-weight: 500;">
+            <td scope="col">Date of Entry</td>
+            <td scope="col">Income Amount</td>
+            <td scope="col">Needs</td>
+            <td scope="col">Wants</td>
+            <td scope="col">Savings</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{incomeAllocationList.dateOfEntry}}</td>
+            <td>{{incomeAllocationList.incomeAmount}}</td>
+            <td> {{incomeAllocationList.expensesOnNeeds}}</td>
+            <td> {{incomeAllocationList.expensesOnWants}}</td>
+            <td> {{incomeAllocationList.savingAmount}}</td>
+        </tr>
+    </tbody>
+</table>
+<ng-template #noAllocations>
+    <pre class="message"><i class="fa-solid fa-calendar-check plus-icon"></i>
+        Please select a month to generate your report
+        </pre>
+</ng-template>

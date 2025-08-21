@@ -1,0 +1,17 @@
+.table-head {
+    background-color: #445D48;
+    color: rgb(228, 223, 223);
+}
+
+.message {
+    text-align: center;
+    margin-top: 150px;
+    font-weight: 600;
+}
+
+.plus-icon {
+    color: #445D48;
+    font-size: 70px;
+    opacity: 1;
+    margin: 10px;
+}

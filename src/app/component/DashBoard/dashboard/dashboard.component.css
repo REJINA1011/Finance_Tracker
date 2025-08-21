@@ -1,0 +1,10 @@
+app-side-bar {
+    flex: 2;
+}
+
+.result {
+    margin-top: 10px;
+    flex: 8;
+    /* max-width: 90vw; */
+    /* border: 2px solid red; */
+}
